@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KAMI Airlines</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'airline_app/style.css' %}" />
+
+    <script>
+        function handleClick(action, id) {
+            switch(action) {
+                case "new":
+                    window.location.href = "{% url 'airplane_new' %}";
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Airplanes</h1>
+    <button onclick="handleClick('new')">Add New Airplane</button>
+    <table style="margin-top: 3%;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Passengers</th>
+                <th>Fuel Tank Capacity (liters)</th>
+                <th>Fuel Consumption/Minute (liters)</th>
+                <th>Maximum minutes able to fly</th>
+                <th colspan="2">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for airplane in airplanes %}
+            <tr style="text-align: center;">
+                <td><strong>{{ airplane.id }}</strong></td>
+                <td><strong>{{ airplane.passengers }}</strong></td>
+                <td>200 * ID = 200 * {{ airplane.id }} = <strong>{{ airplane.fuel_tank_capacity }}</strong></td>
+                <td>0.8 * log(ID) + 0.002 * passengers = 0.8 * log({{airplane.id}}) + 0.002 * {{airplane.passengers}} = <strong>{{ airplane.fuel_consumption_per_minute }}</strong></td>
+                <td>Fuel Tank Capacity / Fuel Consumption = {{airplane.fuel_tank_capacity}} / {{airplane.fuel_consumption_per_minute}} = <strong>{{ airplane.max_minutes_to_fly }}</strong></td>
+                <td style="padding: 30px;"><a href="{% url 'airplane_edit' pk=airplane.id %}">Edit</a></td>
+                <td><a href="{% url 'airplane_delete' pk=airplane.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

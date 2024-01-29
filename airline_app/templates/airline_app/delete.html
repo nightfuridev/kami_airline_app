@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'airline_app/style.css' %}" />
+<h2>Delete Airplane {{ object.id }}</h2>
+<p>Are you sure you want to delete this airplane?</p>
+<form method="POST">
+{% csrf_token %}
+<button type="submit">Yes, delete</button>
+</form>
+<a href="{% url 'airplane_list' %}">No, take me back</a>

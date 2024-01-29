@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'airline_app/style.css' %}" />
+<h2>New Airplane</h2>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Save</button>
+</form>
+<a href="{% url 'airplane_list' %}">No, take me back</a>
